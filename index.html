@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="Start()" style="font-family: Arial;">
+    <canvas id="displayCanvas" style="height: 400px; width: 800px; background-color: azure; border-color: black; border-width: 3px;">
+
+    </canvas>
+    <h5>Press a key on your keyboard to find out what kind of key it is!</h5>
+    <h5><i id="ASCII">ASCII Character = </i></h5>
+
+    <script>
+            var alphaKey = "https://imgr.search.brave.com/LXkseaTkxhtIwl3UnRz1HxYXC2BSIznH5e2WGPwGeFk/fit/1200/1200/no/1/aHR0cHM6Ly9nZXQu/cHhoZXJlLmNvbS9w/aG90by9jb21wdXRl/ci1rZXlib2FyZC10/ZWNobm9sb2d5LW51/bWJlci1zeW1ib2wt/bGV0dGVyLWFscGhh/YmV0LWtleS1idXR0/b24tZXllLW9yZ2Fu/LWNoYXJhY3Rlci1t/dWx0aW1lZGlhLWFi/Yy1jb21wdXRlci1r/ZXlib2FyZC1rZXlw/YWQtZWxlY3Ryb25p/Yy1pbnN0cnVtZW50/LTg1MjA2Mi5qcGc";
+            var numberKey = "https://imgr.search.brave.com/-WlgtGATxBv_NZmcsYyOCR-Nz75sUdW6jJxW86N8dyU/fit/676/900/no/1/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9udW1i/ZXJzLWtleWJvYXJk/LTEwMjkyMjIzLmpw/Zw";
+            
+            var symbolKey = "https://www.prntr.com/images/keyboard-symbols-5.png"
+            var bgsrc = "https://imgr.search.brave.com/3fgK_icXOGGu46-k1-AVY_4DfDm3t65dd4VgPMsgnw8/fit/800/400/no/1/aHR0cDovL3BocC5z/Y3JpcHRzLnBzdS5l/ZHUvdXNlcnMvay9m/L2tmdzUxMzUvUHJv/amVjdCUyMDQvcmVj/dC5wbmc"
+            
+            var x = 15;
+            var y = 15;
+
+            canvas = document.getElementById("displayCanvas");
+            ctx = canvas.getContext("2d");
+
+            function Start() {
+                bgImage = new Image();
+                bgImage.onload = uploadIMG;
+                bgImage.src = bgsrc;
+
+                alphaKeyImage = new Image();
+                alphaKeyImage.onload = uploadAlpha;
+                alphaKeyImage.src = alphaKey;
+
+                numKeyImage = new Image();
+                numKeyImage.onload = uploadNum;
+                numKeyImage.src = numberKey;
+
+                symKeyImage = new Image();
+                symKeyImage.onload = uploadSym;
+                symKeyImage.src = symbolKey;
+            }
+
+            function uploadIMG() {
+                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            }
+
+            function uploadAlpha() {
+                ctx.drawImage(alphaKeyImage, x, y, 160, 120);
+            }
+
+            function uploadNum() {
+                ctx.drawImage(numKeyImage, x, y, 160, 120);
+            }
+
+            function uploadSym() {
+                ctx.drawImage(symKeyImage, x, y, 160, 120);
+            }
+
+            window.addEventListener("keydown", keyDeterminer);
+
+            function keyDeterminer(e) {
+                keyValue = e.keyCode
+                
+                if (keyValue < 91 && keyValue > 59) {
+                    console.log("Alphabet Key");
+                    document.getElementById("ASCII").innerHTML = "ASCII Value " + keyValue + ": An Alphabet Key";
+                    uploadIMG();
+                    uploadAlpha();
+                } else if (keyValue < 58 && keyValue > 47) {
+                    console.log("Number Key")
+                    document.getElementById("ASCII").innerHTML = "ASCII Value " + keyValue + ": A Number Key";
+                    uploadIMG();
+                    uploadNum();
+                } else if (keyValue < 47, keyValue > 32) {
+                    console.log("Symbol Key")
+                    document.getElementById("ASCII").innerHTML = "ASCII Value " + keyValue + ": A Symbol Key";
+                    uploadIMG();
+                    uploadSym();
+                } else {
+                    document.getElementById("ASCII").innerHTML = "ASCII Value " + keyValue + ": Which is an other key";
+                    console.log("Other Key")
+                    uploadIMG();
+
+                }
+            }
+    </script>
+</body>
+</html>
